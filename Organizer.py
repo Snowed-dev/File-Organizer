@@ -3,7 +3,8 @@
 # import os
  
 # # Get the list of all files and directories
-path = r"C:\Users\rosha\OneDrive\Documents\GitHub\File-Organizer\Organize Files"
+source_folder = r"C:\Users\rosha\OneDrive\Documents\GitHub\File-Organizer\Organize Files" + '\\'
+target_folder = r"C:\Users\rosha\OneDrive\Documents\GitHub\File-Organizer\Organize Files\Music" + '\\'
 # dir_list = os.listdir(path)
  
 # print("Files and directories in '", path, "' :")
@@ -20,7 +21,10 @@ import shutil
 # os.mkdir(r"C:\Users\rosha\OneDrive\Documents\GitHub\File-Organizer\Organize Files\Videos", mode = 0o777,  dir_fd = None)
 # os.mkdir(r"C:\Users\rosha\OneDrive\Documents\GitHub\File-Organizer\Organize Files\Music", mode = 0o777,  dir_fd = None)
  
-for files in (path):
-    if files.endswith(".png"):
-        # Prints only text file present in My Folder
-        shutil.move(files, r"C:\Users\rosha\OneDrive\Documents\GitHub\File-Organizer")
+# os.walk(path, topdown=True, onerror=None, followlinks=False)
+        # shutil.move(files, r"C:\Users\rosha\OneDrive\Documents\GitHub\File-Organizer")
+for path, dir, files in os.walk(source_folder):
+    if files:
+        for file in files:
+            if not os.path.isfile(target_folder + file):
+                os.rename(path + '\\' + file, target_folder + file)

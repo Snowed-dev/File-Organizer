@@ -26,5 +26,6 @@ import shutil
 for path, dir, files in os.walk(source_folder):
     if files:
         for file in files:
-            if not os.path.isfile(target_folder + file):
-                os.rename(path + '\\' + file, target_folder + file)
+            if file.endswith(".wav"):
+                if not os.path.isfile(target_folder + file):
+                    os.rename(path + '\\' + file, target_folder + file)

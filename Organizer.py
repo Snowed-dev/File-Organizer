@@ -52,7 +52,22 @@ class FileOrganizerApp(QWidget):
         self.layout = QVBoxLayout()
         self.label = QLabel("Select Source Folder")
         self.button = QPushButton("Organize Files")
+          # self.button = QPushButton("Organize Files")
+        # self.button.setStyleSheet("background-color:rgb(0,0,0)"
+        #                           "border-radius:10px;"
+        #                           "background-color:rgb(255,36,0);"
+        #                           "font: 100 10pt Nirmala UI;")
+        # self.button.setStyleSheet("background-color:rgb(0,0,0)")
+        # self.button.setStyleSheet("border-radius:10px;")
+        # self.button.setStyleSheet("font: 100 10pt Nirmala UI;")
+        self.button.setStyleSheet("border :3px solid blue;"
+                                   "border-top-left-radius :35px;"
+                                   " border-top-right-radius : 20px; "
+                                   "border-bottom-left-radius : 50px; "
+                                   "border-bottom-right-radius : 10px")
+        self.button.resize(100, 100)
         self.button.clicked.connect(self.organize_files)
+       
         self.layout.addWidget(self.label)
         self.layout.addWidget(self.button)
         self.setLayout(self.layout)

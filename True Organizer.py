@@ -43,19 +43,37 @@
 import sys
 import os
 import shutil
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QPushButton, QFileDialog
+# from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QPushButton, QFileDialog
+
+from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QHBoxLayout, QPushButton, QFileDialog
 
 class FileOrganizerApp(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("File Organizer")
+        self.setStyleSheet("background-color: white;")
         self.layout = QVBoxLayout()
-        self.label = QLabel("Select Source Folder")
-        self.button = QPushButton("Organize Files")
-        self.button.clicked.connect(self.organize_files)
-        self.layout.addWidget(self.label)
-        self.layout.addWidget(self.button)
         self.setLayout(self.layout)
+        self.initUI()
+
+    def initUI(self):
+        label_layout = QHBoxLayout()  # Create a QHBoxLayout for label positioning
+        label_layout.addStretch()  # Add stretchable space before the label
+        self.label = QLabel("Select Source Folder")
+        label_layout.addWidget(self.label)
+        label_layout.addStretch()  # Add stretchable space after the label
+
+        self.button = QPushButton("Organize Files")
+        self.button.setStyleSheet("QPushButton {background-color: black; color: white; border-radius: 10px; padding: 10px;}")
+
+        self.button.clicked.connect(self.organize_files)
+
+        self.layout.addStretch()  # Add stretchable space above the label layout
+        self.layout.addLayout(label_layout)  # Add the label layout to the main layout
+        self.layout.addWidget(self.button)
+        self.layout.addStretch()  # Add stretchable space below the button
+        self.resize(400,200)
+
     def organize_files(self):
         source_folder = QFileDialog.getExistingDirectory(self, "Select Source Folder")
         if source_folder:

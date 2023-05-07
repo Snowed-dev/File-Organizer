@@ -1,50 +1,5 @@
-
-# # # import OS module
-# # import os
- 
-# # # Get the list of all files and directories
-# source_folder = r"C:\Users\user\OneDrive\Documents\GitHub\File-Organizer\Organize Files" + '\\'
-# music_folder = r"C:\Users\user\OneDrive\Documents\GitHub\File-Organizer\Organize Files\Music" + '\\'
-# pictures_folder = r"C:\Users\user\OneDrive\Documents\GitHub\File-Organizer\Organize Files\Pictures" + '\\'
-# videos_folder = r"C:\Users\user\OneDrive\Documents\GitHub\File-Organizer\Organize Files\Videos" + '\\'
-
-# # dir_list = os.listdir(path)
- 
-# # print("Files and directories in '", path, "' :")
- 
-# # # prints all files
-# # print(dir_list)
-
-
-
-# # import OS
-# import os
-# import shutil
-# # os.mkdir(r"C:\Users\user\OneDrive\Documents\GitHub\File-Organizer\Organize Files\Pictures", mode = 0o777,  dir_fd = None)
-# # os.mkdir(r"C:\Users\user\OneDrive\Documents\GitHub\File-Organizer\Organize Files\Videos", mode = 0o777,  dir_fd = None)
-# # os.mkdir(r"C:\Users\user\OneDrive\Documents\GitHub\File-Organizer\Organize Files\Music", mode = 0o777,  dir_fd = None)
- 
-# # os.walk(path, topdown=True, onerror=None, followlinks=False)
-#         # shutil.move(files, r"C:\Users\user\OneDrive\Documents\GitHub\File-Organizer")
-# for path, dir, files in os.walk(source_folder):
-#     if files:
-#         for file in files:
-#             if file.endswith((".mp3",  ".wav", ".aac", )):
-#                 if not os.path.isfile(music_folder + file):
-#                     os.rename(path + '\\' + file, music_folder + file)
-#             if file.endswith((".mp4", ".mov", ".wmv", ".avi", ".avchd", ".flv", ".f4v", ".swf", ".mkv", ".webm")):
-#                 if not os.path.isfile(videos_folder + file):
-#                     os.rename(path + '\\' + file, videos_folder + file)
-#             if file.endswith((".jpeg", ".jpg", ".png", ".gif", ".tiff", ".bmp", ".raw")):
-#                 if not os.path.isfile(pictures_folder + file):
-#                     os.rename(path + '\\' + file, pictures_folder + file)
-# #print hello world
-
 import sys
 import os
-import shutil
-# from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QPushButton, QFileDialog
-
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QHBoxLayout, QPushButton, QFileDialog
 
 class FileOrganizerApp(QWidget):
@@ -57,22 +12,34 @@ class FileOrganizerApp(QWidget):
         self.initUI()
 
     def initUI(self):
-        label_layout = QHBoxLayout()  # Create a QHBoxLayout for label positioning
-        label_layout.addStretch()  # Add stretchable space before the label
+        # Create a QHBoxLayout for label positioning
+        label_layout = QHBoxLayout()
+
+        # Add stretchable space before the label
+        label_layout.addStretch()
+
         self.label = QLabel("Select Source Folder")
         label_layout.addWidget(self.label)
-        label_layout.addStretch()  # Add stretchable space after the label
+
+        # Add stretchable space after the label
+        label_layout.addStretch()
 
         self.button = QPushButton("Organize Files")
         self.button.setStyleSheet("QPushButton {background-color: black; color: white; border-radius: 10px; padding: 10px;}")
-
         self.button.clicked.connect(self.organize_files)
 
-        self.layout.addStretch()  # Add stretchable space above the label layout
-        self.layout.addLayout(label_layout)  # Add the label layout to the main layout
+        # Add stretchable space above the label layout
+        self.layout.addStretch()
+
+        # Add the label layout to the main layout
+        self.layout.addLayout(label_layout)
+
         self.layout.addWidget(self.button)
-        self.layout.addStretch()  # Add stretchable space below the button
-        self.resize(400,200)
+
+        # Add stretchable space below the button
+        self.layout.addStretch()
+
+        self.resize(400, 200)
 
     def organize_files(self):
         source_folder = QFileDialog.getExistingDirectory(self, "Select Source Folder")
@@ -86,10 +53,11 @@ class FileOrganizerApp(QWidget):
             os.makedirs(pictures_folder, exist_ok=True)
             os.makedirs(videos_folder, exist_ok=True)
 
+            # Loop through files in the source folder and organize them into folders: Music, Pictures, and Videos
             for path, dir, files in os.walk(source_folder):
                 if files:
                     for file in files:
-                        if file.endswith((".mp3",  ".wav", ".aac")):
+                        if file.endswith((".mp3", ".wav", ".aac")):
                             if not os.path.isfile(os.path.join(music_folder, file)):
                                 os.rename(os.path.join(path, file), os.path.join(music_folder, file))
                         elif file.endswith((".jpeg", ".jpg", ".png", ".gif", ".tiff", ".bmp", ".raw")):
@@ -100,9 +68,6 @@ class FileOrganizerApp(QWidget):
                                 os.rename(os.path.join(path, file), os.path.join(videos_folder, file))
 
             self.label.setText("Files organized successfully!")
-
-                
-                
 
 
 if __name__ == "__main__":

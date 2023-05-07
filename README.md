@@ -55,7 +55,6 @@ File Organizer is a Python application with a PyQt5-based GUI that allows you to
 - PyQt5
 
 
-
 ## Contributing
 
 Contributions to the File Organizer project are welcome! If you find any issues or want to add new features, feel free to open an issue or submit a pull request.
